@@ -1,8 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from registration.views import home
-
+from registration.views import home, signin, signup, signout
 
 urlpatterns = [
     # Examples:
@@ -10,8 +9,9 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
   
     url(r'^home/$', home),
-    url(r'^login/$', login),
+    url(r'^signin/$', signin),
     url(r'^signup/$', signup),
+    url(r'^signout/$', signout)
     
     
  

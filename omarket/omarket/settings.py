@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registration',
+    'address',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -107,4 +108,5 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
        '/templates/',
 )
+
 

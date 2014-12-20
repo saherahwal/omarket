@@ -8,7 +8,7 @@
         
      {% block head %}
         
-        <link rel="shortcut icon" href="../favicon.ico"> 
+    <link rel="shortcut icon" href="../favicon.ico"> 
 	<!-- <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/demo.css" /> -->
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/style_login.css" />
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/animate-custom.css" /> 
@@ -25,7 +25,7 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper_login">
                         <div id="login" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
+                            <form  action="/registration/signin/" autocomplete="on" method="POST"> {% csrf_token %}
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" > Your email or username </label>
@@ -50,28 +50,28 @@
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
+                            <form  action="/registration/signup/" autocomplete="on" method="POST"> {% csrf_token %}
                                 <h1> Sign up </h1> 
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
-                                    <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
+                                    <input id="usernamesignup" name="username_signup" required="required" type="text" placeholder="mysuperusername690" />
                                 </p>
                                 <p> 
                                     <label for="emailsignup" class="youmail" data-icon="e" > Your email</label>
-                                    <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/> 
+                                    <input id="emailsignup" name="email_signup" required="required" type="email" placeholder="mysupermail@mail.com"/> 
                                 </p>
                                 <p> 
                                     <label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>
-                                    <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                    <input id="passwordsignup" name="password_signup" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
                                 <p> 
                                     <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
-                                    <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                    <input id="passwordsignup_confirm" name="password_confirm_signup" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
 								
 								<p>
-									<label for="countrySignup" class="youcountry" data-icon="">Your Country </label>
-									<select id = "countrysignup" required="required">
+									<label for="countrysignup" class="youcountry" data-icon="">Your Country </label>
+									<select id = "countrysignup" name = "country_signup" required="required">
 									  <option value="Palestine">Palestine</option>
 									  <option value="US">United States</option>
 									  <option value="Jordan">Jordan</option>
@@ -79,7 +79,7 @@
 								</p>
 								<p>
 									<label for="citySignup" class="youcity" data-icon="">Your City </label>
-									<select id = "citysignup" required="required">
+									<select id = "citysignup" name="city_signup" required="required">
 									  <option value="Ramallah">Ramallah</option>
 									  <option value="Amman">Amman</option>
 									  <option value="Seattle">Seattle</option>
@@ -105,3 +105,8 @@
             </section>
         </div>
         {% endblock %}
+		
+		
+		{% block tailscripts %}
+		<script src="{{STATIC_URL}}js/registration/reg.js"></script>
+		{% endblock %}
