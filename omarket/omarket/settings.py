@@ -67,7 +67,7 @@ WSGI_APPLICATION = 'omarket.wsgi.application'
 ##    }
 ##}
 
-DB_NAME = 'zasoukeapp'
+DB_NAME = 'omarket'
 DB_USER = 'root'
 DB_HOST = '127.0.0.1'
 DB_PORT = '3306'
