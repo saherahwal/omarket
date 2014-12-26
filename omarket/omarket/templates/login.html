@@ -10,8 +10,8 @@
         
     <link rel="shortcut icon" href="../favicon.ico"> 
 	<!-- <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/demo.css" /> -->
-	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/style_login.css" />
-	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/animate-custom.css" /> 
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/login_style.css" />
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/login_animateCustom.css" /> 
     
      {% endblock %}      
         
@@ -23,9 +23,42 @@
                     <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
                     <a class="hiddenanchor" id="toregister"></a>
                     <a class="hiddenanchor" id="tologin"></a>
+														
+					
                     <div id="wrapper_login">
-                        <div id="login" class="animate form">
-                            <form  action="/registration/signin/" autocomplete="on" method="POST"> {% csrf_token %}
+                        <div id="login" class="animate form">	
+							<form action="/registration/signin/" autocomplete="on" method="POST">{% csrf_token %}
+								<h1>Log in</h1>
+								  {% if respErrors %}
+									<ul>
+										{% for error in respErrors %}
+										<li>{{ error }}</li>
+										{% endfor %}
+									</ul>
+								 {% endif %}								
+								 <p>									
+                                    <label for="{{loginForm.username.id_for_label}}" class="uname" data-icon="u" > Your email or Username </label>
+									{{ loginForm.username }}
+									{{ loginForm.username.errors }}
+                                </p>
+								<p>									
+                                    <label for="{{loginForm.password.id_for_label}}" class="youpasswd" data-icon="p"> Password </label>
+                                    {{ loginForm.password }}
+									{{ loginForm.password.errors }}
+                                </p>
+								 <p class="keeplogin"> 									
+									{{ loginForm.keepMeLoggedIn }}
+									<label for="{{ loginForm.keepMeLoggedIn.id_for_label }}">Keep me logged in</label>
+								</p>
+								<p class="login button"> 
+                                    <input type="submit" value="Login" /> 
+								</p>
+                                <p class="change_link">
+									Not a member yet ?
+									<a href="#toregister" class="to_register">Join us</a>
+								</p>
+							</form>
+                            <!--<form  action="/registration/signin/" autocomplete="on" method="POST"> {% csrf_token %}
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" > Your email or username </label>
@@ -46,11 +79,58 @@
 									Not a member yet ?
 									<a href="#toregister" class="to_register">Join us</a>
 								</p>
-                            </form>
+                            </form> -->
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  action="/registration/signup/" autocomplete="on" method="POST"> {% csrf_token %}
+								<form  action="/registration/signup/" autocomplete="on" method="POST"> {% csrf_token %}
+									<h1> Sign up </h1> 
+									{% if respErrors %}
+									<ul>
+										{% for error in respErrors %}
+										<li>{{ error }}</li>
+										{% endfor %}
+									</ul>
+									{% endif %}	
+									<p>										
+										<label for="{{signupForm.usernameSignup.id_for_label}}" class="uname" data-icon="u">Your Username</label>
+										{{ signupForm.usernameSignup }}
+										{{ signupForm.usernameSignup.errors }}
+									</p>	
+									<p> 										
+										<label for="{{signupForm.email.id_for_label}}" class="youmail" data-icon="e" > Your Email</label>
+										{{ signupForm.email }}
+										{{ signupForm.email.errors }}
+									</p>
+									<p> 										
+										<label for="{{signupForm.passwordSignup.id_for_label}}" class="youpasswd" data-icon="p">Your password </label>
+										{{ signupForm.passwordSignup }}
+										{{ signupForm.passwordSignup.errors }}
+									</p>
+									<p> 										
+										<label for="{{signupForm.confirmPassword.id_for_label}}" class="youpasswd" data-icon="p">Please confirm your password </label>
+										{{ signupForm.confirmPassword }}
+										{{ signupForm.confirmPassword.errors }}
+									</p>
+									<p>
+										<label for="{{signupForm.countrySignup.id_for_label}}" class="youcountry" data-icon="">Your Country </label> </br>
+										{{ signupForm.countrySignup }}					
+										{{ signupForm.countrySignup.errors }}									
+									</p>
+									<p>
+										<label for="{{signupForm.citySignup.id_for_label}}" class="youcity" data-icon="">Your City </label> </br>
+										{{ signupForm.citySignup }}					
+										{{ signupForm.citySignup.errors }}	
+									</p>
+									 <p class="signin button"> 
+										<input type="submit" value="Sign up"/> 
+									</p>
+									<p class="change_link">  
+										Already a member ?
+										<a href="#tologin" class="to_register"> Go and log in </a>
+									</p>
+								</form>
+                            <!--<form  action="/registration/signup/" autocomplete="on" method="POST"> {% csrf_token %}
                                 <h1> Sign up </h1> 
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
@@ -97,7 +177,7 @@
 									<a href="#tologin" class="to_register"> Go and log in </a>
 								</p>
 								
-                            </form>
+                            </form> -->
                         </div>
 						
                     </div>

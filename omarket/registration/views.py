@@ -2,32 +2,65 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from registration import forms as regForms
 
-# Create your views here.
 def home(request):
-    return render( request, "login.html", {})
-
-def signin(request):
-    print "signing in"
+    #
+    # create the unbounded forms for registration
+    #
+    if request.method == 'GET':        
+        loginForm =  regForms.LoginForm()
+        signupForm = regForms.SignupForm()        
+        return render(request,
+                      "login.html",
+                      {'loginForm': loginForm,
+                       'signupForm' : signupForm })
+    
+def signin(request):    
+    #
+    # if post request then process form data
+    #
     if request.method == 'POST':
-        # get post data
-        username = request.POST['username']
-        password = request.POST['password']
+        respErrors = []
+        
+        #
+        # create form instance to process form data
+        #
+        loginForm = regForms.LoginForm(request.POST)
+        
+        #
+        # check whether form is valid
+        #
+        if loginForm.is_valid():
+            username = loginForm.cleaned_data['username']
+            password = loginForm.cleaned_data['password']
+            keepMeLoggedIn = loginForm.cleaned_data['keepMeLoggedIn']
+           
+            #
+            # authenticate
+            #
+            user = authenticate(username=username, password=password)
 
-        # authenticate
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                #redirect to success page - apply login
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    #redirect to success page - apply login
+                else:
+                    respErrors.append("user account not active")                    
+                    return render(request, "login.html", {'loginForm': loginForm}) 
             else:
-                print "user account not active"
-                #redirect to 'disabled account err msg
-        else:
-            print "username or password incorrect"
-            # return invalid login message      
-    return render( request, "login.html", {})
+                respErrors.append("username or password incorrect")             
+                            
+        return render(request, "login.html", {'loginForm': loginForm, 'respErrors': respErrors }) 
+        
+    elif request.method == 'GET':
+        loginForm = regForms.LoginForm()
+        return render(request, "login.html", {'loginForm': loginForm})
+    else:
+        loginForm = regForms.LoginForm()
+        return render(request, "login.html", {'loginForm': loginForm})
+    
+    
 
 def signup(request):
     if request.method == 'POST':

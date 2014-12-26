@@ -225,8 +225,8 @@ p.signin.button{
 	margin: 5px 0;
 }
 
-#countrysignup,
-#citysignup{
+#id_countrySignup,
+#id_citySignup{
     font-size: 15px;
 	color: rgb(0,0,0);
 }
