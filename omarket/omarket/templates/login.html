@@ -85,9 +85,9 @@
                         <div id="register" class="animate form">
 								<form  action="/registration/signup/" autocomplete="on" method="POST"> {% csrf_token %}
 									<h1> Sign up </h1> 
-									{% if respErrors %}
+									{% if respErrorsSignup %}
 									<ul>
-										{% for error in respErrors %}
+										{% for error in respErrorsSignup %}
 										<li>{{ error }}</li>
 										{% endfor %}
 									</ul>
@@ -98,9 +98,9 @@
 										{{ signupForm.usernameSignup.errors }}
 									</p>	
 									<p> 										
-										<label for="{{signupForm.email.id_for_label}}" class="youmail" data-icon="e" > Your Email</label>
-										{{ signupForm.email }}
-										{{ signupForm.email.errors }}
+										<label for="{{signupForm.emailSignup.id_for_label}}" class="youmail" data-icon="e" > Your Email</label>
+										{{ signupForm.emailSignup }}
+										{{ signupForm.emailSignup.errors }}
 									</p>
 									<p> 										
 										<label for="{{signupForm.passwordSignup.id_for_label}}" class="youpasswd" data-icon="p">Your password </label>
@@ -108,19 +108,34 @@
 										{{ signupForm.passwordSignup.errors }}
 									</p>
 									<p> 										
-										<label for="{{signupForm.confirmPassword.id_for_label}}" class="youpasswd" data-icon="p">Please confirm your password </label>
-										{{ signupForm.confirmPassword }}
-										{{ signupForm.confirmPassword.errors }}
+										<label for="{{signupForm.confirmPasswordSignup.id_for_label}}" class="youpasswd" data-icon="p">Please confirm your password </label>
+										{{ signupForm.confirmPasswordSignup }}
+										{{ signupForm.confirmPasswordSignup.errors }}
+									</p>
+									<p> 
+										<label for="{{signupForm.addressSignup.id_for_label}}" class="youaddress" data-icon="">Your Street Address </label>
+										{{ signupForm.addressSignup }}					
+										{{ signupForm.addressSignup.errors }}	
 									</p>
 									<p>
 										<label for="{{signupForm.countrySignup.id_for_label}}" class="youcountry" data-icon="">Your Country </label> </br>
 										{{ signupForm.countrySignup }}					
 										{{ signupForm.countrySignup.errors }}									
 									</p>
-									<p>
+									<p id="cityChoice">
 										<label for="{{signupForm.citySignup.id_for_label}}" class="youcity" data-icon="">Your City </label> </br>
 										{{ signupForm.citySignup }}					
 										{{ signupForm.citySignup.errors }}	
+									</p>
+									<p id="stateChoice">
+										<label for="{{signupForm.stateSignup.id_for_label}}" class="youstate" data-icon="">Your State </label> </br>
+										{{ signupForm.stateSignup }}					
+										{{ signupForm.stateSignup.errors }}	
+									</p>
+									<p id="mobileNum">
+										<label for="{{signupForm.mobileNumberSignup.id_for_label}}" class="youstate" data-icon="">Your Mobile Number </label> </br>
+										{{ signupForm.mobileNumberSignup }}					
+										{{ signupForm.mobileNumberSignup.errors }}	
 									</p>
 									 <p class="signin button"> 
 										<input type="submit" value="Sign up"/> 

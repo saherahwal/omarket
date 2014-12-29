@@ -17,10 +17,13 @@ class Country(models.Model):
 class City(models.Model):
     city_name = models.CharField(max_length = 93)
     city_name_ar = models.CharField(max_length = 93, default = '')
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country)   
 
 class Address(models.Model):
-    street_address = models.CharField(max_length = 350)
+    street_address = models.CharField(max_length = 500)
     city = models.ForeignKey(City) # country included implicitly in city
     zip_code = models.CharField(max_length = 5, default = '')
+    state = models.CharField(max_length = 2, default = '')
+
+
 

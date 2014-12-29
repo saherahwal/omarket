@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
 
 from registration import forms as regForms
 
@@ -16,7 +18,12 @@ def home(request):
                       {'loginForm': loginForm,
                        'signupForm' : signupForm })
     
-def signin(request):    
+def signin(request):
+    #
+    # Create unbounded signup form
+    #
+    signupForm = regForms.SignupForm()
+    
     #
     # if post request then process form data
     #
@@ -37,60 +44,90 @@ def signin(request):
             keepMeLoggedIn = loginForm.cleaned_data['keepMeLoggedIn']
            
             #
-            # authenticate
+            # authenticate using email or username
             #
-            user = authenticate(username=username, password=password)
-
+            (user, msg) = omarketAuth(username, password)
             if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    #redirect to success page - apply login
-                else:
-                    respErrors.append("user account not active")                    
-                    return render(request, "login.html", {'loginForm': loginForm}) 
+                #
+                # redirect to login success page
+                #
+                pass
             else:
-                respErrors.append("username or password incorrect")             
-                            
-        return render(request, "login.html", {'loginForm': loginForm, 'respErrors': respErrors }) 
+                respErrors.append(msg)                            
+        return render(request, "login.html", {'loginForm': loginForm,
+                                              'signupForm' : signupForm, 
+                                              'respErrors': respErrors }) 
         
     elif request.method == 'GET':
         loginForm = regForms.LoginForm()
-        return render(request, "login.html", {'loginForm': loginForm})
+        return render(request, "login.html", {'loginForm': loginForm,
+                                              'signupForm' : signupForm})
     else:
         loginForm = regForms.LoginForm()
-        return render(request, "login.html", {'loginForm': loginForm})
-    
-    
-
+        return render(request, "login.html", {'loginForm': loginForm,
+                                              'signupForm' : signupForm})
+  
 def signup(request):
+    #
+    # Create unbounded login form
+    #
+    loginForm = regForms.LoginForm()
+    
     if request.method == 'POST':
-        errorMsg = "success"
-        if 'username_signup' in request.POST and \
-           'email_signup' in request.POST and \
-           'password_signup' in request.POST and \
-           'password_confirm_signup' in request.POST:
-            
-            username = request.POST['username_signup']
-            email = request.POST['email_signup']
-            password = request.POST['password_signup']
-            passwordConfirm = request.POST['password_confirm_signup']
+        respErrorsSignup = []
 
-            country = request.POST['country_signup']
-            city = request.POST['city_signup']
-                        
-            passwordsMatch = (password == passwordConfirm)
+        #
+        # create singup form instance to process form data
+        #
+        signupForm = regForms.SignupForm(request.POST)
 
-            if not passwordsMatch:
-                errorMsg = "passwords do not match"
-            if usernameExists(username):
-                errorMsg = "registered user with this username exists"
-            if emailExists(email):
-                errorMsg = "registered user with this email already exists"                   
+        if signupForm.is_valid():
 
-            #address and phone number validation
+            #
+            # get form data
+            #
+            username = signupForm.cleaned_data['usernameSignup']
+            email = signupForm.cleaned_data['emailSignup']
+            password = signupForm.cleaned_data['passwordSignup']
+            confirmPassword = signupForm.cleaned_data['confirmPasswordSignup']
+            country = signupForm.cleaned_data['countrySignup']
+            city = signupForm.cleaned_data['citySignup']
+            state = signupForm.cleaned_data['stateSignup']
+            mobile = signupForm.cleaned_data['mobileNumberSignup']
+
+            #
+            # Create user object
+            #
             
             
-            return render (request, "home.html", {})
+        
+##        errorMsg = "success"
+##        if 'username_signup' in request.POST and \
+##           'email_signup' in request.POST and \
+##           'password_signup' in request.POST and \
+##           'password_confirm_signup' in request.POST:
+##            
+##            username = request.POST['username_signup']
+##            email = request.POST['email_signup']
+##            password = request.POST['password_signup']
+##            passwordConfirm = request.POST['password_confirm_signup']
+##
+##            country = request.POST['country_signup']
+##            city = request.POST['city_signup']
+##                        
+##            passwordsMatch = (password == passwordConfirm)
+##
+##            if not passwordsMatch:
+##                errorMsg = "passwords do not match"
+##            if usernameExists(username):
+##                errorMsg = "registered user with this username exists"
+##            if emailExists(email):
+##                errorMsg = "registered user with this email already exists"                   
+##
+##            #address and phone number validation
+##            
+##            
+##            return render (request, "home.html", {})
 
 @login_required(login_url='/registration/signin/')
 def signout(request):
@@ -110,14 +147,35 @@ def emailExists(email):
     return (user_email_count==1)
    
 
-def omarketAuth( username, passwd ):
-    user = authenticate(username=username, password=passwd)
-    if user is not None:
-        # password is valid
+#
+# authentication helper methods
+#
+def authenticate_username(username, password):
+    return authenticate(username=username, password=password)
+
+def authenticate_email(email, password):
+    try:
+        user = User.objects.get(email__iexact=email)
+        if user.check_password(password):
+            return user
+        return None
+    except ObjectDoesNotExist:
+        return None
+     
+def omarketAuth( username, password ):
+    user = authenticate_username(username, password)
+    user_email = authenticate_email(username, password)
+    if user is not None:        
         if user.is_active:
-            print("User is valid, active and authenticated")
+            return (user, "User is valid, active and authenticated")
         else:
-            print("Password valid, but account disabled")            
+            return (None, "Password valid, but account disabled")            
+    elif user_email is not None:
+        if user_email.is_active:
+            return (user_email, "User is valid, active and authenticated")
+        else:
+            return (None, "Password valid, but account disabled")
     else:
-        # auth system was unable to verify username and password
-        print("The username and password is incorrect")
+        return (None, "Neither username nor email authentication worked. Password and/or username invalid")
+        
+        

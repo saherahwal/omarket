@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from address.views import cities
+from address.views import cities, phoneCode
 
 urlpatterns = [
     # Examples:
@@ -9,7 +9,6 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
     
     url(r'^cities/$', cities),
-   
+    url(r'^phoneCode/$', phoneCode),
     
- 
 ]
