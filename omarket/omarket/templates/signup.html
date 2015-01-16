@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+        
+     {% block head %}
+        
+    <link rel="shortcut icon" href="../favicon.ico"> 
+	<!-- <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/demo.css" /> -->
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/login_style.css" />
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/login_animateCustom.css" /> 
+    
+     {% endblock %}      
+        
+     {% block body %}
+     <div class="container_login">
+            
+            <section>				
+                <div id="container_demo" >
+                    <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                    <a class="hiddenanchor" id="toregister"></a>
+                    <a class="hiddenanchor" id="tologin"></a>														
+					
+					<div id="wrapper_login">      
+						<div id="register" class="animate form">							
+						    <form  action="/registration/signup/" autocomplete="on" method="POST"> {% csrf_token %}
+                                <h1> Sign up </h1> 
+                                <p> 
+                                    <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
+                                    <input id="usernamesignup" name="username_signup" required="required" type="text" placeholder="mysuperusername690" />
+                                </p>
+                                <p> 
+                                    <label for="emailsignup" class="youmail" data-icon="e" > Your email</label>
+                                    <input id="emailsignup" name="email_signup" required="required" type="email" placeholder="mysupermail@mail.com"/> 
+                                </p>
+                                <p> 
+                                    <label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>
+                                    <input id="passwordsignup" name="password_signup" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+                                <p> 
+                                    <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
+                                    <input id="passwordsignup_confirm" name="password_confirm_signup" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+								
+								<p>
+									<label for="countrysignup" class="youcountry" data-icon="">Your Country </label>
+									<select id = "countrysignup" name = "country_signup" required="required">
+									  <option value="Palestine">Palestine</option>
+									  <option value="US">United States</option>
+									  <option value="Jordan">Jordan</option>
+									</select>
+								</p>
+								<p>
+									<label for="citySignup" class="youcity" data-icon="">Your City </label>
+									<select id = "citysignup" name="city_signup" required="required">
+									  <option value="Ramallah">Ramallah</option>
+									  <option value="Amman">Amman</option>
+									  <option value="Seattle">Seattle</option>
+									</select>
+								</p>
+								<p> 
+                                    <label for="addresssignup" class="youaddress" data-icon="">Your Street Address </label>
+                                    <input id="addresssignup" name="addresssignup" required="required" type="text" placeholder="362 Memorial Drive APT #2005"/>
+                                </p>
+                                <p class="signin button"> 
+									<input type="submit" value="Sign up"/> 
+								</p>
+                                <p class="change_link">  
+									Already a member ?
+									<a href="/registration/signin" class="to_register"> Go and log in </a>
+								</p>
+								
+                            </form> 
+                        </div>						
+                    </div>
+                </div>  
+            </section>
+        </div>
+        {% endblock %}
+		
+		
+		{% block tailscripts %}
+		<script src="{{STATIC_URL}}js/registration/reg.js"></script>
+		{% endblock %}

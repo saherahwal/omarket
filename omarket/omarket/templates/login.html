@@ -22,8 +22,8 @@
                 <div id="container_demo" >
                     <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
                     <a class="hiddenanchor" id="toregister"></a>
-                    <a class="hiddenanchor" id="tologin"></a>
-														
+                    <a class="hiddenanchor" id="tologin"></a>					
+								
 					
                     <div id="wrapper_login">
                         <div id="login" class="animate form">	
@@ -112,6 +112,11 @@
 										{{ signupForm.confirmPasswordSignup }}
 										{{ signupForm.confirmPasswordSignup.errors }}
 									</p>
+									<p id="subscribeType">
+										<label for="{{signupForm.subscriptionTypeSignup.id_for_label}}" class="yousubscribe" data-icon="">Subscription Type </label> </br>
+										{{ signupForm.subscriptionTypeSignup }}					
+										{{ signupForm.subscriptionTypeSignup.errors }}	
+									</p>
 									<p> 
 										<label for="{{signupForm.addressSignup.id_for_label}}" class="youaddress" data-icon="">Your Street Address </label>
 										{{ signupForm.addressSignup }}					
@@ -133,7 +138,7 @@
 										{{ signupForm.stateSignup.errors }}	
 									</p>
 									<p id="mobileNum">
-										<label for="{{signupForm.mobileNumberSignup.id_for_label}}" class="youstate" data-icon="">Your Mobile Number </label> </br>
+										<label for="{{signupForm.mobileNumberSignup.id_for_label}}" class="youmobile" data-icon="">Your Mobile Number </label> </br>
 										{{ signupForm.mobileNumberSignup }}					
 										{{ signupForm.mobileNumberSignup.errors }}	
 									</p>

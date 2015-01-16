@@ -21,6 +21,9 @@ class SubscriptionType(models.Model):
     subscription_type_name = models.CharField(max_length=NAME_LENGTH)
     subscription_description = models.TextField()
 
+    def __str__(self):
+        return self.subscription_type_name
+
 class UserProfile(User):
     """ inherits from AbstractUser in Django - mainly used for authentication"""
     # other fields here

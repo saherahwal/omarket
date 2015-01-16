@@ -9,8 +9,9 @@ from address.models import City, Country
 #
 # cities get by country
 #
-def cities(request):
+def cities(request):    
     cities = []
+    results = []
     data = {}
     if request.is_ajax():
         country_id = request.POST.get('value')
@@ -18,9 +19,10 @@ def cities(request):
         cities = City.objects.filter(country_id = int(country_id))        
     
     for c in cities:
-        data[c.id] = c.city_name 
+        data[c.id] = c.city_name
+        results.append(c.city_name)
 
-    jsonData = json.dumps(data)
+    jsonData = json.dumps(results)
     return HttpResponse(jsonData ,content_type="application/json")    
                    
 

@@ -1,0 +1,119 @@
+#regSection {
+	height:auto;
+	width: auto;
+}
+
+#regContainer{
+	/*height: 1200px;*/
+	margin-left: auto;
+	margin-right: auto;	
+	margin-bottom: 1%;
+	margin-top: 1%;
+	width: 50%;
+}
+
+@media (max-width: 600px) {
+	#regContainer{
+		/*height: 1200px;*/
+		margin-left: auto;
+		margin-right: auto;	
+		margin-bottom: 1%;
+		margin-top: 1%;
+		width: 100%;
+    }
+}
+
+#signinErr,
+#signupErr{
+	margin-left: 1%;
+	margin-right: 1%;	
+	margin-bottom: 1%;
+	margin-top: 1%;
+	width: 80%;
+}
+
+#signupLi a,
+#loginLi a{
+	font-size: 17px;
+}
+
+#id_subscriptionTypeSignup,
+#id_countrySignup
+{
+	font-size: 13px;
+	color: #000;
+}
+
+.err{
+	width: 80%;
+}
+
+.errorlist li,
+.errorLi{
+	font-size: 15px;
+}
+
+form { 
+	margin: 30px 0 0 0 
+}
+
+form .nonBool{
+	display: block; 
+}
+
+form label { 	
+	margin-bottom: 5px; 
+	font-weight: bold; 
+	font-size: 15px; 
+}
+
+form input:not([type="checkbox"]) {
+	font: 14px/24px Helvetica, Arial, sans-serif; 
+	color: #666; 
+	width: 100%;
+}
+
+form input:not([type="checkbox"]), 
+form textarea { 
+	background: none repeat scroll 0 0 #FFFFFF; 
+	border: 1px solid #C9C9C9; 
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset, -5px -5px 0 0 #F5F5F6, 5px 5px 0 0 #F5F5F6, 5px 0 0 0 #F5F5F6, 0 5px 0 0 #F5F5F6, 5px -5px 0 0 #F5F5F6, -5px 5px 0 0 #F5F5F6; 
+	color: #545658; 
+	padding: 9px; 
+	font-size: 14px; 
+	border-radius: 2px 2px 2px 2px; 
+}
+
+#loginForm p,
+#signupForm p { 
+	margin-bottom: 20px 
+}
+
+form textarea { 
+	width: 90%; 
+	margin: 0 0 0 2px; 
+}
+
+#submitLogin ,
+#submitSignup{ 
+	background: url("../img/submit_bg.gif") repeat-x scroll 0 0 transparent; 
+	border: 1px solid #B7D6DF; 
+	border-radius: 12px; 
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); 
+	color: #437182; 
+	cursor: pointer; 
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; 
+	font-size: 14px;
+	font-weight: bold; 
+	height: auto; 
+	padding: 6px 10px; 
+	text-shadow: 0 1px 0 #FFFFFF; 
+	width: 100px; 
+}
+
+#submitLogin:hover,
+#submitSignup:hover { 
+	background: url("../img/submit_hover_bg.gif") repeat-x scroll 0 0 transparent; 
+	border: 1px solid #9FBAC0; 
+	cursor: pointer; 
+}

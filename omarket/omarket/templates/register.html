@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+        
+     {% block head %}       
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/registration_style.css" />   
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.min.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.structure.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.structure.min.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.theme.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.theme.min.css" /> 
+     {% endblock %}      
+        
+     {% block body %}
+	
+    <section id ="regSection">	
+		{% if respErrorsSignup %}
+			<div id ="signupErr" class="alert alert-danger">	
+				<strong>Errors:</strong>
+				<ul>
+					{% for error in respErrorsSignup %}
+					<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}	
+		{% if respErrors %}
+			<div id = "signinErr" class="alert alert-danger">	
+				<strong>Errors:</strong>
+				<ul>
+					{% for error in respErrors %}
+					<li class ="errorLi">{{ error }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}	
+		<div id="regContainer">			
+			<ul class="nav nav-tabs">
+				{% if signupForm.errors %}  <!-- this is to keep signup form active in case of errors -->
+				<li id="loginLi"><a href="#to_signin" data-toggle="tab"><i class="icon-briefcase"></i> Log In</a></li>
+				<li id="signupLi" class="active"><a href="#to_signup" data-toggle="tab">Create New Account</a></li>
+				{% else %}
+				<li id="loginLi" class="active"><a href="#to_signin" data-toggle="tab"><i class="icon-briefcase"></i> Log In</a></li>
+				<li id="signupLi"><a href="#to_signup" data-toggle="tab">Create New Account</a></li>
+				{% endif %}
+			</ul>
+			<div class="tab-content">
+				{% if signupForm.errors %}  <!-- this is to keep signup form active in case of errors -->
+				<div class="tab-pane fade" id="to_signin">
+				{% else %}
+				<div class="tab-pane active in" id="to_signin">
+				{% endif %}
+				
+					<div id="login">
+						<form id="loginForm" action="/registration/signin/" autocomplete="on" method="POST"> {% csrf_token %}
+							<p>									
+								<label for="{{loginForm.username.id_for_label}}" class="nonBool"> Your Email or Username </label>
+								{{ loginForm.username }}
+								{% if loginForm.username.errors %}
+									<div class="alert alert-danger err">									
+										{{ loginForm.username.errors }}
+									</div>
+								{% endif %}
+							</p>
+							<p>									
+								<label for="{{loginForm.password.id_for_label}}" class="nonBool"> Password </label>								
+								{{ loginForm.password }}
+								{% if loginForm.password.errors %}
+									<div class="alert alert-danger err">									
+										{{ loginForm.password.errors }}
+									</div>
+								{% endif %}
+							</p>
+							
+							<p class="login button"> 
+								<button id="submitLogin" type="submit">Login</button>
+							</p>
+						             
+						</form>
+					</div>
+				</div>
+				{% if signupForm.errors %}  <!-- this is to keep signup form active in case of errors -->
+				<div class="tab-pane active in" id="to_signup">
+				{% else %}
+				<div class="tab-pane fade" id="to_signup">
+				{% endif %}
+					<div id="register">
+						<form  action="/registration/signup/" autocomplete="on" method="POST"> {% csrf_token %}							
+								<p>										
+									<label for="{{signupForm.usernameSignup.id_for_label}}" class="nonBool">Your Username</label>
+									{{ signupForm.usernameSignup }}
+									{% if signupForm.usernameSignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.usernameSignup.errors }}
+										</div>
+									{% endif %}
+									
+								</p>	
+								<p> 										
+									<label for="{{signupForm.emailSignup.id_for_label}}" class="nonBool"> Your Email</label>
+									{{ signupForm.emailSignup }}									
+									{% if signupForm.emailSignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.emailSignup.errors }}
+										</div>
+									{% endif %}
+								</p>
+								<p> 										
+									<label for="{{signupForm.passwordSignup.id_for_label}}" class="nonBool" >Your password </label>
+									{{ signupForm.passwordSignup }}									
+									{% if signupForm.passwordSignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.passwordSignup.errors }}
+										</div>
+									{% endif %}
+								</p>
+								<p> 										
+									<label for="{{signupForm.confirmPasswordSignup.id_for_label}}" class="nonBool" >Please confirm your password </label>
+									{{ signupForm.confirmPasswordSignup }}									
+									{% if signupForm.confirmPasswordSignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.confirmPasswordSignup.errors }}
+										</div>
+									{% endif %}
+								</p>
+								<p id="subscribeType">
+									<label for="{{signupForm.subscriptionTypeSignup.id_for_label}}" class="nonBool" data-icon="">Subscription Type </label> </br>
+									{{ signupForm.subscriptionTypeSignup }}	
+									{% if signupForm.subscriptionTypeSignup.errors %}
+										<div class="alert alert-danger">									
+											{{ signupForm.subscriptionTypeSignup.errors }}
+										</div>
+									{% endif %}
+								</p>
+								<p> 
+									<label for="{{signupForm.addressSignup.id_for_label}}" class="nonBool" data-icon="">Your Street Address </label>
+									{{ signupForm.addressSignup }}								
+									{% if signupForm.addressSignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.addressSignup.errors }}
+										</div>
+									{% endif %}
+								</p>
+								<p>
+									<label for="{{signupForm.countrySignup.id_for_label}}" class="nonBool" data-icon="">Your Country </label> </br>
+									{{ signupForm.countrySignup }}					
+									{{ signupForm.countrySignup.errors }}	
+									{% if signupForm.countrySignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.countrySignup.errors }}
+										</div>
+									{% endif %}
+								</p>
+								<p id="cityChoice">
+									<label for="{{signupForm.citySignup.id_for_label}}" class="nonBool" data-icon="">Your City </label> </br>
+									{{ signupForm.citySignup }}
+									{% if signupForm.citySignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.citySignup.errors }}
+										</div>
+									{% endif %}									
+								</p>
+								<p id="stateChoice">
+									<label for="{{signupForm.stateSignup.id_for_label}}" class="nonBool" data-icon="">Your State </label> </br>
+									{{ signupForm.stateSignup }}					
+									{{ signupForm.stateSignup.errors }}	
+									{% if signupForm.stateSignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.stateSignup.errors }}
+										</div>
+									{% endif %}	
+								</p>
+								<p id="mobileNum">
+									<label for="{{signupForm.mobileNumberSignup.id_for_label}}" class="nonBool" data-icon="">Your Mobile Number </label> </br>
+									{{ signupForm.mobileNumberSignup }}					
+									{{ signupForm.mobileNumberSignup.errors }}	
+									{% if signupForm.mobileNumberSignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.mobileNumberSignup.errors }}
+										</div>
+									{% endif %}	
+								</p>
+								<p class="login button"> 
+									<button id="submitSignup" type="submit">Sign Up</button>
+								</p>
+						</form>
+					</div>
+				</div>				
+			</div>
+		</div>
+                
+    </section>    
+     {% endblock %}
+		
+		
+	{% block tailscripts %}
+	<script src="{{STATIC_URL}}js/jqueryUI/jquery-ui.js"></script>
+	<script src="{{STATIC_URL}}js/jqueryUI/jquery-ui.min.js"></script>
+	<script src="{{STATIC_URL}}js/registration/reg.js"></script>
+	{% endblock %}
