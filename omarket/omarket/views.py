@@ -5,6 +5,6 @@ from django.template import Context, Template
 def hello(request):
     return HttpResponse("Hello world")
 
-def homepage(request):
+def homepage(request):    
     return render( request , "index.html", {})
 

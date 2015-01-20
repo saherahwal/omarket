@@ -85,5 +85,15 @@ class SignupForm(forms.Form):
     subscriptionTypeSignup = forms.ModelChoiceField(queryset= SubscriptionType.objects.all() ,
                                                     empty_label=None)
 
+class ChangePasswordForm(forms.Form):
+    oldPassword = forms.CharField( required = True,
+                                   min_length = PASSWORD_MIN_LENGTH,
+                                   widget=forms.PasswordInput(attrs={'placeholder': 'X8df!90EO'}))
+    newPassword = forms.CharField( required = True,
+                                   min_length = PASSWORD_MIN_LENGTH,
+                                   widget=forms.PasswordInput(attrs={'placeholder': 'W9va!80FQ'}))
+    confirmNewPassword = forms.CharField( required = True,
+                                          min_length = PASSWORD_MIN_LENGTH,
+                                          widget=forms.PasswordInput(attrs={'placeholder': 'W9va!80FQ'}))
 
                        

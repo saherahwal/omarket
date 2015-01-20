@@ -19,6 +19,7 @@ EMAIL_ALREADY_EXISTS = "Email provided has already been registered"
 PASSWORDS_DO_NOT_MATCH = "Passwords do not match"
 ERRORS_IN_FORM = "Erros in Form. Did NOT submit"
 CITY_DOESNT_MATCH= "City Does not exist in country chosen."
+OLD_PASSWORD_WRONG= "Old Password is Wrong"
 
 def home(request):
     #
@@ -63,10 +64,11 @@ def signin(request):
             (user, msg) = omarketAuth(username, password)
             if user is not None:
                 #
-                # redirect to login success page
+                # log user in - redirect to login success page
                 #
-                #TODO: change main page/            
-                return render(request, "index.html", {'user': user})
+                #TODO: change main page
+                login(request, user)
+                return render(request, "index.html", {})
                
             else:
                 respErrors.append(msg)
@@ -202,10 +204,59 @@ def signout(request):
     loginForm =  regForms.LoginForm()
     signupForm = regForms.SignupForm()        
     return render(request,
-                      "register.html",
-                      {'loginForm': loginForm,
-                       'signupForm' : signupForm })
-    
+                  "register.html",
+                  {'loginForm': loginForm,
+                   'signupForm' : signupForm })
+
+@login_required(login_url='/registration/signin/') 
+def profile(request):
+    return render(request, "emptyTemplate.html", {})
+
+@login_required(login_url='/registration/signin/') 
+def changepassword(request):
+    if request.method == 'GET':        
+        changePasswordForm = regForms.ChangePasswordForm()
+        return render(request, "changepassword.html", {'changePasswordForm': changePasswordForm})
+    elif request.method == 'POST':
+        respErrors = []
+        #
+        # bind form data
+        # 
+        changePasswordForm = regForms.ChangePasswordForm(request.POST)
+
+        if changePasswordForm.is_valid():
+
+            #
+            # get form data
+            #
+            oldPassword = changePasswordForm.cleaned_data['oldPassword']
+            newPassword = changePasswordForm.cleaned_data['newPassword']
+            confirmNewPassword = changePasswordForm.cleaned_data['confirmNewPassword']
+
+                        
+            if not request.user.check_password(oldPassword):
+                respErrors.append(OLD_PASSWORD_WRONG)
+
+            if confirmNewPassword != newPassword:
+                respErrors.append( PASSWORDS_DO_NOT_MATCH )
+
+            #
+            # if errors exist - return
+            #
+            if len(respErrors) != 0:
+                return render(request, "changepassword.html", {'changePasswordForm' : changePasswordForm,
+                                                               'respErrors' : respErrors } )
+            else:
+                #
+                # success - change password
+                #
+                request.user.set_password(newPassword)
+                request.user.save()
+                return render(request, "changepassword.html", {'changePasswordForm' : changePasswordForm } )
+        else:
+            return render(request, "changepassword.html", {'changePasswordForm' : changePasswordForm } )           
+
+            
 
 #
 # helper methods
