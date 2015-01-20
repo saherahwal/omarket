@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import transaction
 
 from registration import forms as regForms
 from registration.models import SubscriptionType, UserProfile
+from address.models import City, Country, Address
 #
 # Localizable Strings
 #
@@ -16,6 +18,7 @@ USERNAME_ALREADY_EXISTS = "Username already exists, try another one"
 EMAIL_ALREADY_EXISTS = "Email provided has already been registered"
 PASSWORDS_DO_NOT_MATCH = "Passwords do not match"
 ERRORS_IN_FORM = "Erros in Form. Did NOT submit"
+CITY_DOESNT_MATCH= "City Does not exist in country chosen."
 
 def home(request):
     #
@@ -62,8 +65,9 @@ def signin(request):
                 #
                 # redirect to login success page
                 #
-                #TODO: fill this in
-                palcehold = "garbage"
+                #TODO: change main page/            
+                return render(request, "index.html", {'user': user})
+               
             else:
                 respErrors.append(msg)
                 return render(request, "register.html", {'loginForm': loginForm,
@@ -91,6 +95,7 @@ def signup(request):
     #
     # Create unbounded login form
     #
+    # TODO: check country 
     loginForm = regForms.LoginForm()
 
     print request.get_full_path()
@@ -112,9 +117,11 @@ def signup(request):
             email = signupForm.cleaned_data['emailSignup']
             password = signupForm.cleaned_data['passwordSignup']
             confirmPassword = signupForm.cleaned_data['confirmPasswordSignup']
-            country = signupForm.cleaned_data['countrySignup']
+            countryId = signupForm.cleaned_data['countrySignup']
             city = signupForm.cleaned_data['citySignup']
-            state = signupForm.cleaned_data['stateSignup']
+            stateId = signupForm.cleaned_data['stateSignup']
+            street_address = signupForm.cleaned_data['addressSignup']
+            zipCode = signupForm.cleaned_data['zipcodeSignup']
             mobile = signupForm.cleaned_data['mobileNumberSignup']
             subscriptiontype = signupForm.cleaned_data['subscriptionTypeSignup']
 
@@ -128,8 +135,23 @@ def signup(request):
             if(emailExists(email)):
                 respErrorsSignup.append( EMAIL_ALREADY_EXISTS )
 
+            #
+            # do passwords match?
+            #
             if password != confirmPassword:
                 respErrorsSignup.append( PASSWORDS_DO_NOT_MATCH )
+
+
+            #
+            # lookup country - guaranteed not fail
+            # does city exist in the country?
+            # NOTE: we guarantee that if city exists, it will be unique
+            #
+            countryObj = Country.objects.get(id=countryId)            
+            cityObjs = City.objects.filter(city_name=city,
+                                           country=countryObj)
+            if(len(cityObjs)==0):
+                respErrorsSignup.append( CITY_DOESNT_MATCH )
 
             #
             # if errors exist - return
@@ -140,46 +162,56 @@ def signup(request):
                                                          'respErrorsSignup' : respErrorsSignup } )                
             #
             # Create user
+            # find country and add address to that user
             #
-            user = UserProfile.objects.create_user(username=username,
-                                                   password=password,
-                                                   email=email,
-                                                   mobile=mobile,
-                                                   subscription_type=subscriptiontype)
-            
+            with transaction.atomic():
+                userObj = UserProfile.objects.create_user(username=username,
+                                                          password=password,
+                                                          email=email,
+                                                          mobile=mobile,
+                                                          subscription_type=subscriptiontype)                    
+                
+              
+                addressObj = Address.objects.create(street_address=street_address,
+                                                    city = cityObjs[0],
+                                                    zip_code=zipCode,
+                                                    state=regForms.getStateFromId(stateId))
+                userObj.addresses.add( addressObj )
+                userObj.save()
             return render(request, "register.html", {'loginForm': loginForm,
                                                      'signupForm' : signupForm,
                                                      'respErrorsSignup' : respErrorsSignup } )  
         else:
             #
             # form invalid
-            #
-            #respErrorsSignup.append(ERRORS_IN_FORM)            
+            #                        
             return render(request, "register.html", {'loginForm': loginForm,
                                                      'signupForm' : signupForm,
                                                      'respErrorsSignup' : respErrorsSignup })  
     else:
+        #
+        # non-post request (GET)
+        #
         signupForm = regForms.SignupForm()
         return render(request, "register.html", {'loginForm': loginForm,                                              
                                                  'signupForm' : signupForm})
-            
-                                            
-            
-            
-        
-
 
 @login_required(login_url='/registration/signin/')
-def signout(request):
-    print "signing out"
+def signout(request):   
     logout(request)
-    return render (request, "login.html", {})
+    loginForm =  regForms.LoginForm()
+    signupForm = regForms.SignupForm()        
+    return render(request,
+                      "register.html",
+                      {'loginForm': loginForm,
+                       'signupForm' : signupForm })
+    
 
 #
 # helper methods
 #
 def usernameExists(username):
-    user_username_count = UserProfile.objects.filter(username=username).count()
+    user_username_count = UserProfile.objects.filter(username=username).count()    
     return (user_username_count==1)
 
 def emailExists(email):

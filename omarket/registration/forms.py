@@ -26,6 +26,7 @@ PASSWORD_MIN_LENGTH = 8
 MAX_USERNAME_LENGTH = 150
 ADDRESS_MAX_LENGTH = 500
 MAX_CITYNAME_LENGTH=93
+MAX_ZIPCODE_LENGTH=5
 #
 # Helper Functions
 #
@@ -38,10 +39,14 @@ def getCountryCodeCountryTuples():
     for q in countryQuerySet:
         tupRes = ( q.id, q.country_name)
         listRes.append( tupRes)
-    return listRes    
+    return listRes
 
+def getStateFromId(idNum):
+    for s in STATES_US_CHOICES:
+        if( s[0] == idNum ):
+            return s[1]
 
-
+    
 
 class LoginForm(forms.Form):
     username = forms.CharField( required = True,
@@ -70,11 +75,12 @@ class SignupForm(forms.Form):
     citySignup = forms.CharField(required = True,
                                  max_length=MAX_CITYNAME_LENGTH,
                                  widget=forms.TextInput(attrs={'placeholder': 'e.g Chicago'}))                                 
+    zipcodeSignup = forms.CharField(required=False,
+                                    max_length=MAX_ZIPCODE_LENGTH)                                
     stateSignup = forms.ChoiceField( required = False,
                                      choices = STATES_US_CHOICES )
     addressSignup = forms.CharField( max_length = ADDRESS_MAX_LENGTH,
                                      widget=forms.TextInput(attrs={'placeholder':'235 Albany St. APT #2005'}))
-     
     mobileNumberSignup = PhoneNumberField()
     subscriptionTypeSignup = forms.ModelChoiceField(queryset= SubscriptionType.objects.all() ,
                                                     empty_label=None)

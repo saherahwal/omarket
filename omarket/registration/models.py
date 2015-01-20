@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from address.models import Address
 
 """
 
@@ -32,6 +33,9 @@ class UserProfile(User):
 
     # foreign key
     subscription_type = models.ForeignKey(SubscriptionType)
+
+    #many-to-many fields
+    addresses = models.ManyToManyField(Address)
     
     def __str__(self):
         return "%s's profile" % self.user

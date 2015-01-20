@@ -41,7 +41,7 @@
 		{% endif %}	
 		<div id="regContainer">			
 			<ul class="nav nav-tabs">
-				{% if signupForm.errors %}  <!-- this is to keep signup form active in case of errors -->
+				{% if signupForm.errors or respErrorsSignup %}  <!-- this is to keep signup form active in case of errors -->
 				<li id="loginLi"><a href="#to_signin" data-toggle="tab"><i class="icon-briefcase"></i> Log In</a></li>
 				<li id="signupLi" class="active"><a href="#to_signup" data-toggle="tab">Create New Account</a></li>
 				{% else %}
@@ -50,7 +50,7 @@
 				{% endif %}
 			</ul>
 			<div class="tab-content">
-				{% if signupForm.errors %}  <!-- this is to keep signup form active in case of errors -->
+				{% if signupForm.errors or respErrorsSignup %}  <!-- this is to keep signup form active in case of errors -->
 				<div class="tab-pane fade" id="to_signin">
 				{% else %}
 				<div class="tab-pane active in" id="to_signin">
@@ -84,7 +84,7 @@
 						</form>
 					</div>
 				</div>
-				{% if signupForm.errors %}  <!-- this is to keep signup form active in case of errors -->
+				{% if signupForm.errors or respErrorsSignup %}  <!-- this is to keep signup form active in case of errors -->
 				<div class="tab-pane active in" id="to_signup">
 				{% else %}
 				<div class="tab-pane fade" id="to_signup">
@@ -172,6 +172,16 @@
 									{% if signupForm.stateSignup.errors %}
 										<div class="alert alert-danger err">									
 											{{ signupForm.stateSignup.errors }}
+										</div>
+									{% endif %}	
+								</p>
+								<p id="zipCodePar">
+									<label for="{{signupForm.zipcodeSignup.id_for_label}}" class="nonBool" data-icon="">Your Zip Code</label> </br>
+									{{ signupForm.zipcodeSignup }}					
+									{{ signupForm.zipcodeSignup.errors }}	
+									{% if signupForm.zipcodeSignup.errors %}
+										<div class="alert alert-danger err">									
+											{{ signupForm.zipcodeSignup.errors }}
 										</div>
 									{% endif %}	
 								</p>

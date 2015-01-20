@@ -8,11 +8,11 @@
 	<meta name="description" content="" />
 	<meta name="author" content="http://bootstraptaste.com" />
 	<!-- css -->
-	<link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" />
+	<link href="{{STATIC_URL}}css/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="{{STATIC_URL}}css/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
 	<link href="{{STATIC_URL}}css/fancybox/jquery.fancybox.css" rel="stylesheet">
-	<link href="{{STATIC_URL}}css/flexslider.css" rel="stylesheet" />
-	<link href="{{STATIC_URL}}css/style.css" rel="stylesheet" />
-
+	<link href="{{STATIC_URL}}css/flexslider.css" rel="stylesheet" />	
+	<link href="{{STATIC_URL}}css/style.css" rel="stylesheet" /> 	
 
 	<!-- Theme skin -->
 	<link href="{{STATIC_URL}}skins/default.css" rel="stylesheet" />
@@ -29,7 +29,8 @@
 <body>
 <div id="wrapper">
 	<!-- start header -->
-	<header>
+	<header> 
+		<!--
         <div class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -48,18 +49,99 @@
                             <ul class="dropdown-menu">
                                 <li><a href="typography.html">Typography</a></li>
                                 <li><a href="components.html">Components</a></li>
-				<li><a href="pricingbox.html">Pricing box</a></li>
+								<li><a href="pricingbox.html">Pricing box</a></li>
                             </ul>
                         </li>                       
                         <li><a href="blog.html">Blog</a></li>
                         <li><a href="portfolio.html">portfolio</a></li>
                         <li><a href="contact.html">Contact</a></li>
+						{% if not user.is_authenticated %}
 						<li><a href="/registration/home">Log In</a></li>
+						{% else %}
+						<li class="dropdown">
+                            <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">Account <b class=" icon-angle-down"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="typography.html">Edit Profile</a></li>
+                                <li><a href="components.html">Change Password</a></li>							
+                            </ul>
+                        </li>  
+						{% endif %}
                     </ul>
                 </div>
             </div>
-        </div>
-	</header>
+        </div> -->	
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="/">Brand</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav">
+				<li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+				<li><a href="#">Features</a></li>
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+				  <ul class="dropdown-menu" role="menu">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+					<li class="divider"></li>
+					<li><a href="#">One more separated link</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			  <!--<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+				  <input type="text" class="form-control" placeholder="Search">
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button> 				
+			  </form>-->
+			  <!-- <form class="navbar-form navbar-left search-form" role="search">		-->	
+              <form class="navbar-form navbar-left" role="search" method="get" id="search-form" name="search-form">
+					<div class="form-group" id="searchInput">
+						<input type="text" class="form-control" placeholder="Search Orders, Businesses and more..." id="query" name="query" value="">
+					</div>					
+					<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>					
+			  </form> 
+			  <ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+				  <ul class="dropdown-menu" role="menu">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				  </ul>
+				</li>
+				{% if not user.is_authenticated %}
+				<li><a href="/registration/home">Log In</a></li>
+				{% else %}
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">Welcome {{user.username}}! <b class=" icon-angle-down"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="/registration/profile">Profile</a></li>
+						<li><a href="/registration/changepassword">Change Password</a></li>		
+						<li><a href="/registration/signout">Logout</a></li>								
+					</ul>
+				</li>  
+				{% endif %}
+				
+			  </ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>		
 	<!-- end header -->
 
 
@@ -147,7 +229,11 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{STATIC_URL}}js/jquery.js"></script>
 <script src="{{STATIC_URL}}js/jquery.easing.1.3.js"></script>
+<script src="{{STATIC_URL}}js/jquery/jquery-1.11.2.min.js"></script>
+<script src="{{STATIC_URL}}js/jquery/jquery-1.11.2.js"></script>
+<script src="{{STATIC_URL}}js/jquery.easing.1.3.js"></script>
 <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+<script src="{{STATIC_URL}}js/bootstrap.js"></script>
 <script src="{{STATIC_URL}}js/jquery.fancybox.pack.js"></script>
 <script src="{{STATIC_URL}}js/jquery.fancybox-media.js"></script>
 <script src="{{STATIC_URL}}js/jquery.cookie.js"></script>

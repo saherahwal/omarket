@@ -6,7 +6,7 @@ from address.views import cities, phoneCode
 urlpatterns = [
     # Examples:
     # url(r'^$', 'omarket.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+    # url(r'^blog/', include('blog.urls')),  
     
     url(r'^cities/$', cities),
     url(r'^phoneCode/$', phoneCode),
