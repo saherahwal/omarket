@@ -9,27 +9,31 @@
 	margin-right: auto;	
 	margin-bottom: 1%;
 	margin-top: 1%;
-	width: 50%;
+	width: 33%;
 }
 
-@media (max-width: 600px) {
-	#regContainer{
-		/*height: 1200px;*/
+@media (max-width: 700px) {
+	#regContainer{		
+		width: 100%;
+    }
+	
+	#signinErr,
+	#signupErr{
 		margin-left: auto;
 		margin-right: auto;	
 		margin-bottom: 1%;
 		margin-top: 1%;
 		width: 100%;
-    }
+	}
 }
 
 #signinErr,
 #signupErr{
-	margin-left: 1%;
-	margin-right: 1%;	
+	margin-left: auto;
+	margin-right: auto;	
 	margin-bottom: 1%;
 	margin-top: 1%;
-	width: 80%;
+	width: 33%;
 }
 
 #signupLi a,

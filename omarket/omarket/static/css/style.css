@@ -8,8 +8,9 @@
 /* === custom icon === */
 @import url('custom-fonts.css');
 /* ==== overwrite bootstrap standard ==== */
-@import url('overwrite.css');
+/*@import url('overwrite.css');*/
 @import url('animate.css');
+
 
 /* ===================================
 1. General
@@ -93,13 +94,31 @@ img.img-polaroid {
 .img-box {
 	max-width:100%;
 }
+
 /* ===================================
 4. Header
 ==================================== */
 
 /* --- header -- */
 
+#search-form{
+    min-width: 370px;
+}
 
+#searchInput{
+	width: 84%;
+}
+
+#searchInput input{
+	width: 100%;
+}
+@media (max-width: 300px) {
+	#search-form{
+		width: auto;
+	}
+}
+
+/*
 header .navbar {
     margin-bottom: 0;
 }
@@ -218,9 +237,9 @@ header .nav li .dropdown-menu li a {
    line-height: 28px;
    padding: 3px 12px;
 }
-
+*/
 /* --- menu --- */
-
+/*
 header .navigation {
 	float:right;
 }
@@ -275,6 +294,7 @@ header ul.nav li ul {
 header ul.nav li ul li ul {
 	margin:1px 0 0 1px;
 }
+
 .dropdown-menu .dropdown i {
 	position:absolute;
 	right:0;
@@ -291,8 +311,6 @@ header ul.nav li ul li ul {
   content:none;
 }
 
-
-
 ul.nav li.dropdown a {
 	z-index:1000;
 	display:block;
@@ -301,7 +319,7 @@ ul.nav li.dropdown a {
  select.selectmenu {
 	display:none;
 }
-
+*/
 /* ===================================
 5. Section: Featured
 ==================================== */

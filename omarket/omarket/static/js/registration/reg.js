@@ -74,18 +74,17 @@ $(document).ready(function(){
 				 });			
 		}
 		
-		var showAndHideStateList = function(){
+		var showUSRelated = function(){
 			//
 			// Show State list if United States is chosen
-			//		
-			
+			//			
 			var country_sel = $( "#id_countrySignup option:selected" ).text();
-			if (country_sel === "United States"){
-				//$("#stateChoice").css('visibility', 'visible');
+			if (country_sel === "United States"){				
 				$("#cityChoice").after(stateChoice);
-			}else{
-				//$("#stateChoice").css('visibility', 'hidden');
+				$("#stateChoice").after(zipCode)
+			}else{				
 				$("#stateChoice").detach();
+				$("#zipCodePar").detach();
 			}
 		}
 		
@@ -110,30 +109,32 @@ $(document).ready(function(){
 		
 		
 		//
-		// keep copy of stateChoice dropdown 
+		// keep copy of stateChoice dropdown and zipcode field
 		// then detach :)
-		//
-		var stateChoice = $("#stateChoice");
-		$("#stateChoice").detach();		
+		//	
+        var stateChoice = $("#stateChoice");
+		var zipCode = $("#zipCodePar");		
+		$("#stateChoice").detach();	
+		$("#zipCodePar").detach();		
 		
 		//
 		// Show or hide State list
 		// get phone code per country chosen
 		//
-		showAndHideStateList();	
+		showUSRelated();	
 	    getPhoneCodes();				
 		
        
 		$( "#id_countrySignup" ).on( 'click', function() {	 
 			getCities();
-			showAndHideStateList();
+			showUSRelated();
 			getPhoneCodes();
 		});
 
 			
 		$( "#id_countrySignup" ).on( 'change', function() {	  
 			getCities();
-			showAndHideStateList();	
+			showUSRelated();	
 			getPhoneCodes();
 		});		
 		
