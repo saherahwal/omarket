@@ -21,4 +21,5 @@ urlpatterns = [
 
     url('^registration/', include('registration.urls')),
     url('^address/', include('address.urls')),
+    url('^business/', include('business.urls')),
 ]
