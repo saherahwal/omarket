@@ -118,6 +118,10 @@ img.img-polaroid {
 	}
 }
 
+.mainNav {
+    z-index: 3000;
+}
+
 /*
 header .navbar {
     margin-bottom: 0;
