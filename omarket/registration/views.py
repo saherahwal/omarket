@@ -210,7 +210,7 @@ def signout(request):
 
 @login_required(login_url='/registration/signin/') 
 def profile(request):
-    return render(request, "emptyTemplate.html", {})
+    return render(request, "userprofile.html", {})
 
 @login_required(login_url='/registration/signin/') 
 def changepassword(request):
@@ -278,9 +278,10 @@ def authenticate_username(username, password):
 
 def authenticate_email(email, password):
     try:
-        user = UserProfile.objects.get(email__iexact=email)
+        user = User.objects.get(email__iexact=email)
         if user.check_password(password):
-            return user
+            # need to call authenticate before login - django docs
+            return authenticate(username=user.username, password=password)            
         return None
     except ObjectDoesNotExist:
         return None
