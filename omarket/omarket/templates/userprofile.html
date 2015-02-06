@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+        
+     {% block head %}
+	 <!-- Custom CSS -->
+     <link href="{{STATIC_URL}}css/userprofile.css" rel="stylesheet">
+     {% endblock %}      
+        
+     {% block body %}
+		<section id="userProfilePanel">			
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<< User Name >>
+					</div>
+					<div class="panel-body">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+					</div>
+					<div class="panel-footer">
+						Panel Footer
+					</div>
+				</div>			
+		</section>
+	 
+	 {% endblock %}
+		
+		
+	{% block tailscripts %}	
+	{% endblock %}

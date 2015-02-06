@@ -267,8 +267,7 @@ def usernameExists(username):
 
 def emailExists(email):
     user_email_count = UserProfile.objects.filter(email=email).count()
-    return (user_email_count==1)
-   
+    return (user_email_count==1)   
 
 #
 # authentication helper methods
