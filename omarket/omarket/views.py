@@ -8,3 +8,8 @@ def hello(request):
 def homepage(request):    
     return render( request , "index.html", {})
 
+#
+# pricing view and packages
+#
+def pricing(request):
+    return render( request, "pricing.html", {})

@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from omarket.views import hello
+from omarket.views import hello, pricing
 from omarket.views import homepage
 
 
@@ -22,4 +22,5 @@ urlpatterns = [
     url('^registration/', include('registration.urls')),
     url('^address/', include('address.urls')),
     url('^business/', include('business.urls')),
+    url('^pricing/', pricing),
 ]
