@@ -3,10 +3,12 @@
 <head>
 
 	<meta charset="utf-8">
-	<title>OMarket - The Middle East Online Market</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="" />
-	<meta name="author" content="http://bootstraptaste.com" />
+	<meta name="author" content="Saher Ahwal" />
+	<title>OMarket - The Middle East Online Market</title>
+	
 	<!-- css -->
 	<link href="{{STATIC_URL}}css/bootstrap/css/bootstrap.css" rel="stylesheet" />
 	<link href="{{STATIC_URL}}css/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
@@ -27,11 +29,10 @@
 </head>
 
 <body>
-<div id="wrapper">
+	<div id="wrapper">
 	<!-- start header -->
 	<header> 		
-		<nav class="navbar navbar-default mainNav">
-		  <div class="container-fluid container">
+		<nav class="navbar navbar-default mainNav navbar-static-top" role="navigation">		  
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -42,7 +43,7 @@
 			  </button>
 			  <a class="navbar-brand" href="/">Brand</a>
 			</div>
-
+			{% block navExtension %} {% endblock %}
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			  <ul class="nav navbar-nav">
@@ -77,32 +78,31 @@
 			  </form> 
 			  <ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Business <span class="caret"></span></a>
 				  <ul class="dropdown-menu" role="menu">
-					<li><a href="#">Action</a></li>
-					<li><a href="#">Another action</a></li>
+					<li><a href="/business/home/">Dashboard</a></li>
+					<li><a href="/business/orders">Orders</a></li>
 					<li><a href="#">Something else here</a></li>
 					<li class="divider"></li>
-					<li><a href="#">Separated link</a></li>
+					<li><a href="/business/settings/">Settings</a></li>
 				  </ul>
 				</li>
 				{% if not user.is_authenticated %}
 				<li><a href="/registration/home">Log In</a></li>
 				{% else %}
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false"> <i class="fa fa-user fa-fw"></i> Welcome {{user.username}}! <b class=" icon-angle-down"></b></a>
+					<a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false"> <i class="fa fa-user fa-fw"></i> Welcome {{user.username}}! <b class=" icon-angle-down"></b><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="/registration/profile"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
 						<li><a href="/registration/changepassword"><i class="fa fa-key"></i> Change Password</a></li>		
 						<li><a href="/registration/signout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>								
 					</ul>
 				</li>  
-				{% endif %}
-				
+				{% endif %}				
 			  </ul>
-			</div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
+			</div><!-- /.navbar-collapse -->			
 		</nav>		
+	</header>
 	<!-- end header -->
 
 

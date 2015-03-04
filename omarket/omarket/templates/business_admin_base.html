@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+        
+    {% block head %} 	 	
+	 <!-- Bootstrap Core CSS -->
+    <link href="{{STATIC_URL}}css/business/bootstrap.min.css" rel="stylesheet">
+	 
+	<!-- Custom CSS -->
+    <link href="{{STATIC_URL}}css/business/admin.css" rel="stylesheet">
+	 
+	<!-- MetisMenu CSS -->
+    <link href="{{STATIC_URL}}css/business/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="{{STATIC_URL}}css/business/plugins/timeline.css" rel="stylesheet">
+    
+    <!-- Custom Fonts -->
+    <link href="{{STATIC_URL}}css/business/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	{% block headExtension %}{% endblock %}
+	
+	{% endblock %}    
+       
+	{% block navExtension %}
+	<div class="navbar-default sidebar" role="navigation">
+		<div class="sidebar-nav navbar-collapse">
+			<ul class="nav" id="side-menu">
+				<li class="sidebar-search">
+					<div class="input-group custom-search-form">
+						<input type="text" class="form-control" placeholder="Search...">
+						<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							<i class="fa fa-search"></i>
+						</button>
+					</span>
+					</div>
+					<!-- /input-group -->
+				</li>
+				<li>
+					<a class="active" href="/business/home/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-tag"></i> Products</a>
+				</li>
+				<li>
+					<a href="/business/orders/"><i class="fa fa-table fa-fw"></i> Orders</a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-users"></i> Customers</a>
+				</li>							
+				<li>						
+					<a href="#"><i class="fa fa-briefcase"></i> Offers</a>
+				</li>
+				<li>						
+					<a href="#"><i class="fa fa-gift"></i> Gift Cards</a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a href="flot.html"> Simple Reports</a>
+						</li>
+						<li>
+							<a href="morris.html"> Analysis Reports</a>
+						</li>
+					</ul>
+					<!-- /.nav-second-level -->
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-wrench fa-fw"></i> Settings<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a href="#"><i class="fa fa-cog"></i> General</a>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-file-o"></i> Account</a>
+						</li>
+						<li>
+							<a href="#"><i class="glyphicon glyphicon-credit-card"></i> Payment Information</a>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-shopping-cart"></i> Checkout</a>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-truck"></i> Shipping</a>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-usd"></i> Taxes</a>
+						</li>                               
+						<li>
+							<a href="#"><i class="fa fa-bell-o"></i> Notifications</a>
+						</li>                                                             
+					</ul>
+					<!-- /.nav-second-level -->
+				</li>
+				<!--  Example MULTI LEVEL 
+				<li>
+					<a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a href="#">Second Level Item</a>
+						</li>
+						<li>
+							<a href="#">Second Level Item</a>
+						</li>
+						<li>
+							<a href="#">Third Level <span class="fa arrow"></span></a>
+							<ul class="nav nav-third-level">
+								<li>
+									<a href="#">Third Level Item</a>
+								</li>
+								<li>
+									<a href="#">Third Level Item</a>
+								</li>
+								<li>
+									<a href="#">Third Level Item</a>
+								</li>
+								<li>
+									<a href="#">Third Level Item</a>
+								</li>
+							</ul>
+							
+						</li>
+					</ul>
+					
+				</li>  End MULTI LEVEL --> 
+				<!-- <li>
+					<a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a href="blank.html">Blank Page</a>
+						</li>
+						<li>
+							<a href="login.html">Login Page</a>
+						</li>
+					</ul>
+					
+				</li> -->
+			</ul>
+		</div>
+		<!-- /.sidebar-collapse -->
+	</div>
+		<!-- /.navbar-static-side -->
+	{% endblock %}   
+            
+          
+	 {% block body %}
+	 {% endblock %}
+		
+		
+	{% block tailscripts %}	
+	 <!-- Metis Menu Plugin JavaScript -->
+    <script src="{{STATIC_URL}}js/business/plugins/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{STATIC_URL}}js/business/admin.js"></script>
+	{% block tailscriptsExtension %}{% endblock %}
+	
+	{% endblock %}

@@ -137,10 +137,5 @@ $(document).ready(function(){
 			showUSRelated();	
 			getPhoneCodes();
 		});		
-		
-		
-		
-								
 
-		
 });

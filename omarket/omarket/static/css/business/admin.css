@@ -343,3 +343,21 @@ table.dataTable thead .sorting:after {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+.panel-brown {
+    border-color: #07AB95;
+}
+
+.panel-brown .panel-heading {
+    border-color: #07AB95;
+    color: #fff;
+    background-color: #07AB95;
+}
+
+.panel-brown a {
+    color: #07AB95;
+}
+
+.panel-brown a:hover {
+    color: #0B5E53;
+}
