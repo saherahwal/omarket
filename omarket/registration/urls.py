@@ -3,6 +3,7 @@ from django.contrib import admin
 
 from registration.views import home, signin, signup
 from registration.views import signout, profile, changepassword
+from registration.views import subscribe
 
 urlpatterns = [
     # Examples:
@@ -15,6 +16,7 @@ urlpatterns = [
     url(r'^signout/$', signout),
     url(r'^profile/$', profile),
     url(r'^changepassword/$', changepassword),
+    url(r'^subscribe/$', subscribe),
     
  
 ]

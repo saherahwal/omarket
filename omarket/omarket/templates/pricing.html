@@ -11,6 +11,13 @@
         
      {% block body %}
 	 <div class="container">
+		{% if signingIn %}
+		<div class="row">
+			<div class="col-lg-12">
+				<h3>Choose Your Subscription Plan</h3>
+			</div>
+		</div>
+		{% endif %}
 		<div class="row">
 			<div class="col-lg-12">
 				<h4>Omarket Plans</h4>
@@ -33,9 +40,15 @@
 							<li><i class="icon-ok"></i><s> Gift Card Offers</s></li>
 						</ul>
 					</div>
+					{% if not signingIn %}
 					<div class="pricing-action">
 						<a href="#" class="btn btn-medium btn-theme"><i class="icon-bolt"></i> Register now</a>
 					</div>
+					{% else %}
+					<div class="pricing-action">
+						<a id="veryBasicBusiness" href="#" class="btn btn-medium btn-theme"><i class="icon-bolt"></i> Free Trial! </a>
+					</div>
+					{% endif %}
 				</div>
 			</div>
 			<div class="col-lg-3">
@@ -56,9 +69,15 @@
 							<li><i class="icon-ok"></i><s> Gift Card Offers</s></li>							
 						</ul>
 					</div>
+					{% if not signingIn %}
 					<div class="pricing-action">
 						<a href="#" class="btn btn-medium btn-theme"><i class="icon-bolt"></i> Register now</a>
 					</div>
+					{% else %}
+					<div class="pricing-action">
+						<a id="basicBusiness" href="#" class="btn btn-medium btn-theme"><i class="icon-bolt"></i> Free Trial! </a>
+					</div>
+					{% endif %}
 				</div>
 			</div>
 			<div class="col-lg-3">
@@ -79,9 +98,15 @@
 							<li><i class="icon-ok"></i> Gift Card Offers</li>
 						</ul>
 					</div>
+					{% if not signingIn %}
 					<div class="pricing-action">
 						<a href="#" class="btn btn-medium btn-theme"><i class="icon-bolt"></i> Register now</a>
 					</div>
+					{% else %}
+					<div class="pricing-action">
+						<a id="proBusiness" href="#" class="btn btn-medium btn-theme"><i class="icon-bolt"></i> Free Trial! </a>
+					</div>
+					{% endif %}
 				</div>
 			</div>
 			<div class="col-lg-3">
@@ -102,15 +127,44 @@
 							<li><i class="icon-ok"></i> Gift Card Offers</li>							
 						</ul>
 					</div>
+					{% if not signingIn %}
 					<div class="pricing-action">
 						<a href="#" class="btn btn-medium btn-theme"><i class="icon-bolt"></i> Register now</a>
 					</div>
+					{% else %}
+					<div class="pricing-action">
+						<a id="premBusiness" href="#" class="btn btn-medium btn-theme"><i class="icon-bolt"></i> Free Trial! </a>
+					</div>
+					{% endif %}
+				</div>
+			</div>			
+		</div >
+		{% if signingIn %}
+		<div class="row">
+			<div class="col-lg-12">
+				<h4>Free Customer Plan</h4>				
+			</div>
+			<div class="col-lg-12">
+				<div class="pricing-box-alt">
+					<div class="pricing-heading">
+						<h3>FREE ( I Don't Own a Business )</h3>
+					</div>
+					<div class="pricing-terms">
+						<h5>&#36;0.00 / Month</h5>
+					</div>	
+					<div class="pricing-action">
+						<a id="freeCustomer" href="#" class="btn btn-medium btn-theme"><i class="icon-bolt"></i> Go! </a>
+					</div>					
 				</div>
 			</div>			
 		</div>
+		{% endif %}
 	</div>
 	 {% endblock %}
 		
 		
 	{% block tailscripts %}	
+		{% if signingIn %}
+			<script src="{{STATIC_URL}}js/registration/pricingsignup.js"></script>
+		{% endif %}
 	{% endblock %}

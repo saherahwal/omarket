@@ -161,7 +161,9 @@ def signup(request):
             if len(respErrorsSignup) != 0:
                 return render(request, "register.html", {'loginForm': loginForm,
                                                          'signupForm' : signupForm,
-                                                         'respErrorsSignup' : respErrorsSignup } )                
+                                                         'respErrorsSignup' : respErrorsSignup } )
+
+            user = None
             #
             # Create user
             # find country and add address to that user
@@ -180,9 +182,22 @@ def signup(request):
                                                     state=regForms.getStateFromId(stateId))
                 userObj.addresses.add( addressObj )
                 userObj.save()
-            return render(request, "register.html", {'loginForm': loginForm,
-                                                     'signupForm' : signupForm,
-                                                     'respErrorsSignup' : respErrorsSignup } )  
+
+                #
+                # this authentication should work - otherwise big problem
+                #
+                (user, msg) = omarketAuth(username, password)
+
+                #
+                # log the user in
+                #            
+                login(request, user)
+
+            #
+            # at this point you have succeeded
+            # 
+            signingIn = True
+            return render(request, "pricing.html", { 'signingIn' : signingIn } )  
         else:
             #
             # form invalid
@@ -254,9 +269,47 @@ def changepassword(request):
                 request.user.save()
                 return render(request, "changepassword.html", {'changePasswordForm' : changePasswordForm } )
         else:
-            return render(request, "changepassword.html", {'changePasswordForm' : changePasswordForm } )           
+            return render(request, "changepassword.html", {'changePasswordForm' : changePasswordForm } )
 
-            
+@login_required(login_url='/registration/signin/')
+def subscribe(request):
+    
+    if request.method == 'POST':
+
+        respErrors = []
+
+        subscriptionChoice = request.POST.get('subChoice')        
+        
+        subList = []
+
+        if subscriptionChoice == 'veryBasic':
+            subList = SubscriptionType.objects.filter( id = 2 )            
+        elif subscriptionChoice == 'basic':
+            subList = SubscriptionType.objects.filter( id = 3 )             
+        elif subscriptionChoice == 'pro':
+            subList = SubscriptionType.objects.filter( id = 4 ) 
+        elif subscriptionChoice == 'prem':
+            subList = SubscriptionType.objects.filter( id = 5 ) 
+        elif subscriptionChoice == 'free':
+            subList = SubscriptionType.objects.filter( id = 1 ) 
+        else:
+            respErrors.append(" Invalid Request ")
+
+        #
+        # for extra safety - this test should pass always
+        #
+        if request.user.is_authenticated():
+            userObj = UserProfile.objects.get( id = request.user.id )
+            userObj.subscription_type = subList[0]
+            userObj.save()
+        else:
+           respErrors.append(" Adding Subscription Failed ") 
+
+        return render(request,
+                      "pricing.html",
+                      { 'respErrors' : respErrors } )
+    else:
+        pass
 
 #
 # helper methods

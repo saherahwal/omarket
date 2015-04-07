@@ -1,0 +1,171 @@
+{% extends "business_admin_base.html" %}
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+        
+    {% block headExtension %}
+	<!-- Custom Table CSS -->
+    <link href="{{STATIC_URL}}css/business/products.css" rel="stylesheet">
+	{% endblock %}    
+             
+	{% block body %}
+        <div id="page-wrapper">
+		
+			<div id="calendar"></div>
+		
+            <div class="row">
+                <div class="col-lg-12">				    
+					<h1 class="page-header">Products</h1>		
+                </div>
+				 <!-- /.col-lg-12-->              
+            </div>
+			
+			<div class="row">				
+				<div class="btn-group"> 					
+					<button class="btn btn-primary addServiceBtn"> <i class="fa fa-plus-square"></i> Item</button>
+					<button class="btn btn-primary addServiceBtn"> <i class="fa fa-plus-square"></i> Service</button> 
+				</div>	
+			</div>					
+			
+			<div id="addItemFormDiv" class="row">
+				<form  action="/business/products/addItem" autocomplete="on" method="POST"> {% csrf_token %}
+					<p>
+						<label for="{{itemAddForm.title.id_for_label}}" class="nonBool">Title</label>
+						{{ itemAddForm.title }}
+						{% if itemAddForm.title.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.title.errors }}
+							</div>
+						{% endif %}	
+					</p>
+
+					<p>
+						<label for="{{itemAddForm.productType.id_for_label}}" class="nonBool">Product Type</label>
+						{{ itemAddForm.productType }}
+						{% if itemAddForm.productType.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.productType.errors }}
+							</div>
+						{% endif %}	
+					</p>
+
+
+					<p>
+						<label for="{{itemAddForm.vendor.id_for_label}}" class="nonBool">Vendor</label>
+						{{ itemAddForm.vendor }}
+						{% if itemAddForm.vendor.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.vendor.errors }}
+							</div>
+						{% endif %}	
+					</p>		
+
+
+					<p>
+						<label for="{{itemAddForm.description.id_for_label}}" class="nonBool">Description</label>
+						{{ itemAddForm.description }}
+						{% if itemAddForm.description.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.description.errors }}
+							</div>
+						{% endif %}	
+					</p>
+					
+					<p>
+						<label for="{{itemAddForm.image.id_for_label}}" class="nonBool">Main Image</label>
+						{{ itemAddForm.image }}
+						{% if itemAddForm.image.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.image.errors }}
+							</div>
+						{% endif %}	
+					</p>					
+					
+
+					<p>
+						<label for="{{itemAddForm.price.id_for_label}}" class="nonBool">Price</label>
+						{{ itemAddForm.price }}
+						{% if itemAddForm.price.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.price.errors }}
+							</div>
+						{% endif %}	
+					</p>
+
+					<p>
+						<label for="{{itemAddForm.currency.id_for_label}}">Currency</label>
+						{{ itemAddForm.currency }}
+						{% if itemAddForm.currency.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.currency.errors }}
+							</div>
+						{% endif %}	
+					</p>	
+
+					<p>
+						<label for="{{itemAddForm.tags.id_for_label}}" class="nonBool">Tags</label>
+						{{ itemAddForm.tags }}
+						{% if itemAddForm.tags.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.tags.errors }}
+							</div>
+						{% endif %}	
+					</p>					
+					
+					<p>
+						<label for="{{itemAddForm.shoppingCategory.id_for_label}}" class="nonBool">Shopping Category</label>
+						{{ itemAddForm.shoppingCategory }}
+						<a id="addCatButton" class="btn btn-primary"> <i id="addCatIcon" class="fa fa-plus-square"></i> Category</a> 
+						{% if itemAddForm.shoppingCategory.errors %}						
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.shoppingCategory.errors }}
+							</div>
+						{% endif %}	
+					</p>	
+					
+					<p id="newCategoryPar">
+						<label for="{{itemAddForm.newCategory.id_for_label}}">Category Name</label>
+						{{ itemAddForm.newCategory }}
+						{% if itemAddForm.newCategory.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.newCategory.errors }}
+							</div>
+						{% endif %}	
+					</p>
+					
+					<p>
+						<label for="{{itemAddForm.chargeTaxes.id_for_label}}">Tax Charged</label>
+						{{ itemAddForm.chargeTaxes }}
+						{% if itemAddForm.chargeTaxes.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.chargeTaxes.errors }}
+							</div>
+						{% endif %}	
+					</p>	
+
+					<p>
+						<label for="{{itemAddForm.shippingRequired.id_for_label}}">Requires Shipping</label>
+						{{ itemAddForm.shippingRequired }}
+						{% if itemAddForm.shippingRequired.errors %}
+							<div class="alert alert-danger err">									
+								{{ itemAddForm.shippingRequired.errors }}
+							</div>
+						{% endif %}	
+					</p>	
+					
+					<p class="submitAddItemClass button"> 
+						<button id="submitAddItem" type="submit">Submit</button>
+					</p>			
+					
+				</form>				
+			</div>
+                        
+        </div>
+        <!-- /#page-wrapper -->	
+	{% endblock %}		
+		
+	{% block tailscriptsExtension %}  
+	<script src="{{STATIC_URL}}js/business/products.js"></script>
+    {% endblock %}
