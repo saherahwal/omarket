@@ -1,69 +1,29 @@
-#changePassSection {
-	height:auto;
-	width: auto;
-}
-
-#changePassSection{	
+#addItemFormDiv{	
 	margin-left: auto;
 	margin-right: auto;	
 	margin-bottom: 1%;
 	margin-top: 1%;
-	width: 33%;
+	width: 70%;
 }
 
 @media (max-width: 700px) {
-	#changePassSection{		
+	#addItemFormDiv{		
 		width: 100%;
-    }
-	
-	#changePassErr
-	{
-		margin-left: auto;
-		margin-right: auto;	
-		margin-bottom: 1%;
-		margin-top: 1%;
-		width: 100%;
-	}
-}
-
-#changePassErr{
-	margin-left: auto;
-	margin-right: auto;	
-	margin-bottom: 1%;
-	margin-top: 1%;
-	width: 33%;
-}
-
-
-#id_oldPassword,
-#id_newPassword,
-#id_confirmNewPassword
-{
-	font-size: 13px;
-	color: #000;
-}
-
-.err{
-	width: 80%;
-}
-
-.errorlist li,
-.errorLi{
-	font-size: 15px;
+    }	
 }
 
 form { 
 	margin: 30px 0 0 0 
 }
 
-form .nonBool{
-	display: block; 
-}
-
 form label { 	
 	margin-bottom: 5px; 
 	font-weight: bold; 
 	font-size: 15px; 
+}
+
+form .nonBool{
+	display: block; 
 }
 
 form input:not([type="checkbox"]) {
@@ -83,17 +43,21 @@ form textarea {
 	border-radius: 2px 2px 2px 2px; 
 }
 
-#changePasswordForm p { 
-	margin-bottom: 20px 
+.addProduct {
+	margin-bottom: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
 }
 
-form textarea { 
-	width: 90%; 
-	margin: 0 0 0 2px; 
+.addServiceBtn {
+	color: #fff;
+	background-color: #33343e;
+	border-color: #1c1e29;
 }
 
-#submitChangePass{ 
-	background: url("../img/submit_bg.gif") repeat-x scroll 0 0 transparent; 
+#submitAddItem{ 
+	background: url("../../img/submit_bg.gif") repeat-x scroll 0 0 transparent; 
 	border: 1px solid #B7D6DF; 
 	border-radius: 12px; 
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); 
@@ -108,8 +72,9 @@ form textarea {
 	width: 100px; 
 }
 
-#submitChangePass:hover{
-	background: url("../img/submit_hover_bg.gif") repeat-x scroll 0 0 transparent; 
+#submitAddItem:hover{
+	background: url("../../img/submit_hover_bg.gif") repeat-x scroll 0 0 transparent; 
 	border: 1px solid #9FBAC0; 
 	cursor: pointer; 
 }
+

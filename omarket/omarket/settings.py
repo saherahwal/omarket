@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'registration',
     'address',
+    'business',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,5 +109,8 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
        '/templates/',
 )
+
+# Media Root - uploaded images
+MEDIA_ROOT = '/uploads'
 
 

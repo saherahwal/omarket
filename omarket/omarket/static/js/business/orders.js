@@ -4,6 +4,8 @@ function format ( d ) {
         'The child row can contain any data you wish, including links, images, inner tables etc.';
 }
 
+var test;
+
 $(document).ready(function() {
 	
 	// Array to track the ids of the details displayed rows
@@ -32,15 +34,23 @@ $(document).ready(function() {
         "order": [[1, 'asc']]
     } ); */
  
-	var dt = $('#ordersTable').DataTable();
- 
+	var dt = $('#ordersTable').DataTable();	
+	
     $('#ordersTable tbody').on( 'click', 'tr td:first-child', function () {
         var tr = $(this).closest('tr');
+		var icon = $(this).closest('td').children('i');
         var row = dt.row( tr );
-        var idx = $.inArray( tr.attr('id'), detailRows );
- 
+        var idx = $.inArray( tr.attr('id'), detailRows );		
+		
+		test = icon;
+		
         if ( row.child.isShown() ) {
-            tr.removeClass( 'details' );
+            tr.removeClass( 'details' );	
+			
+			// icon hide and show
+			icon.removeClass( 'fa-minus-square' );			
+			icon.addClass( 'fa-plus-square' );	
+			
             row.child.hide();
  
             // Remove from the 'open' array
@@ -48,6 +58,12 @@ $(document).ready(function() {
         }
         else {
             tr.addClass( 'details' );
+			
+			// icon hide and show
+			icon.removeClass( 'fa-plus-square' );			
+			icon.addClass( 'fa-minus-square' );		
+			
+			// add row
             row.child( format( row.data() ) ).show();
  
             // Add to the 'open' array
