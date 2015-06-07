@@ -7,6 +7,7 @@ MAX_ZIPCODE_LENGTH=5
 #
 # US States hardcoded
 #
+#TODO: consider making this a hashtable instead of list
 STATES_US_CHOICES = [(1, 'AL'), (2, 'AK'), (3, 'AZ'), (4, 'AR'), (5, 'CA'),
                      (6, 'CO'), (7, 'CT'), (8, 'DE'), (9, 'FL'), (10, 'GA'),
                      (11, 'HI'), (12, 'ID'), (13, 'IL'), (14, 'IN'), (15, 'IA'),
@@ -24,7 +25,7 @@ STATES_US_CHOICES = [(1, 'AL'), (2, 'AK'), (3, 'AZ'), (4, 'AR'), (5, 'CA'),
 #
 def getCountryCodeCountryTuples():
     """
-        return a list of 2-tuples of country-code and country_name
+        return a list of 2-tuples of country-id and country_name
     """
     countryQuerySet = Country.objects.all().order_by('country_name')
     listRes = []
@@ -34,6 +35,13 @@ def getCountryCodeCountryTuples():
     return listRes
 
 def getStateFromId(idNum):
-    for s in STATES_US_CHOICES:
-        if( s[0] == idNum ):
-            return s[1]
+    try:
+        for s in STATES_US_CHOICES:
+            if( s[0] == int(idNum) ):
+                print "state returned", s[1]
+                return s[1]
+    except:
+        print 'idNum=', idNum
+        # DO return default
+        # most likely country with no States (non-US)
+        return ''

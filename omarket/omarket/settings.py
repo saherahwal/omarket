@@ -111,6 +111,6 @@ TEMPLATE_DIRS = (
 )
 
 # Media Root - uploaded images
-MEDIA_ROOT = '/uploads'
-
-
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "omarket\uploads")
+print "Media_root", MEDIA_ROOT

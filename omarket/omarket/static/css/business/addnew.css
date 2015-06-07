@@ -1,4 +1,4 @@
-#addItemFormDiv{	
+#regNewBusiness{	
 	margin-left: auto;
 	margin-right: auto;	
 	margin-bottom: 1%;
@@ -7,7 +7,7 @@
 }
 
 @media (max-width: 700px) {
-	#addItemFormDiv{		
+	#regNewBusiness{		
 		width: 93%;
     }	
 }
@@ -43,20 +43,8 @@ form textarea {
 	border-radius: 2px 2px 2px 2px; 
 }
 
-.addProduct {
-	margin-bottom: auto;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: auto;
-}
 
-.addServiceBtn {
-	color: #fff;
-	background-color: #33343e;
-	border-color: #1c1e29;
-}
-
-#submitAddItem{ 
+#submitAddBusiness{ 
 	background: url("../../img/submit_bg.gif") repeat-x scroll 0 0 transparent; 
 	border: 1px solid #B7D6DF; 
 	border-radius: 12px; 
@@ -72,9 +60,8 @@ form textarea {
 	width: 100px; 
 }
 
-#submitAddItem:hover{
+#submitAddBusiness:hover{
 	background: url("../../img/submit_hover_bg.gif") repeat-x scroll 0 0 transparent; 
 	border: 1px solid #9FBAC0; 
 	cursor: pointer; 
 }
-

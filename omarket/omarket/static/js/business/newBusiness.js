@@ -20,11 +20,7 @@ $(document).ready(function(){
 					xhr.setRequestHeader("X-CSRFToken", csrftoken);
 				}
 			}
-		});
-		
-		//
-		// Function Defs 
-		//	
+		});	
 		
 		
 		var getCities = function() {
@@ -34,12 +30,12 @@ $(document).ready(function(){
 					datatype: "json",
 					type: "POST",					
 					data: {  
-							value: $("#id_countrySignup").val(),
-							text : $("#id_countrySignup option:selected").text(),
+							value: $("#id_country").val(),
+							text : $("#id_country option:selected").text(),
 						  },
 				 }).done(function(data) {					
 				     cities = data					 
-					 $( "#id_citySignup").autocomplete({
+					 $( "#id_city").autocomplete({
 						source: cities
 					 });
 				 });			
@@ -49,7 +45,7 @@ $(document).ready(function(){
 			//
 			// Show State list if United States is chosen
 			//			
-			var country_sel = $( "#id_countrySignup option:selected" ).text();
+			var country_sel = $( "#id_country option:selected" ).text();
 			if (country_sel === "United States"){				
 				$("#cityChoice").after(stateChoice);
 				$("#stateChoice").after(zipCode)
@@ -65,15 +61,15 @@ $(document).ready(function(){
 					datatype: "json",
 					type: "POST",					
 					data: {  
-							value: $("#id_countrySignup").val(),
-							text : $("#id_countrySignup option:selected").text(),
+							value: $("#id_country").val(),
+							text : $("#id_country option:selected").text(),
 						  },
 				 }).done(function(data) {						
 						
 						//
 						// add country code text 
 						//
-						$("#id_mobileNumberSignup").val("+" + data['phone_code']);
+						$("#id_phone").val("+" + data['phone_code']);
 						
 				 });
 		}		
@@ -96,14 +92,14 @@ $(document).ready(function(){
 	    getPhoneCodes();				
 		
        
-		$( "#id_countrySignup" ).on( 'click', function() {	 
+		$( "#id_country" ).on( 'click', function() {	 
 			getCities();
 			showUSRelated();
 			getPhoneCodes();
 		});
 
 			
-		$( "#id_countrySignup" ).on( 'change', function() {	  
+		$( "#id_country" ).on( 'change', function() {	  
 			getCities();
 			showUSRelated();	
 			getPhoneCodes();

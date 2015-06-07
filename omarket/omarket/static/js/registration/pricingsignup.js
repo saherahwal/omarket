@@ -30,9 +30,11 @@ $(document).ready(function(){
 					data: data,
 				 }).done(function(data) {					
 				     // capture the response
+					 window.location = '/business/add';
 				 });		
 		}
-		       
+		    
+   
 		$( "#veryBasicBusiness" ).on( 'click', function() {	 
 			var data = { subChoice : 'veryBasic' };
 			subscribeBusiness( data );

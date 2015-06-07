@@ -14,6 +14,7 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),  
     
     url(r'^home/$', home),
+    url(r'^add/$', addBusiness),
     url(r'^orders/$', orders),    
     url(r'^products/$', products),
 

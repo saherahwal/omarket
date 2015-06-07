@@ -2,6 +2,8 @@ from django import forms
 from phonenumber_field.formfields import PhoneNumberField
 from address.utils import *
 
+from business.models import BusinessType
+
 #
 # model dependencies 
 #
@@ -28,6 +30,16 @@ def getShoppingCategoryTuples():
     """
     return [ (1, 'Food'), (2, 'Beverage'), ( 3, 'Electronics') ]
 
+def getBusinessTypeTuples():
+    """
+        return list of 2-tuples of business type IDs and names        
+    """
+    bussinessTypeQSet = BusinessType.objects.all().order_by('type_name')
+    listRes = []
+    for e in bussinessTypeQSet:        
+        tupRes = ( e.id, e.type_name)
+        listRes.append( tupRes )
+    return listRes        
 
 #
 # Forms start here
@@ -39,6 +51,7 @@ class BusinessForm(forms.Form):
                              widget=forms.TextInput(attrs={'placeholder': 'e.g Boston Market'}))
     phone = PhoneNumberField()
     image = forms.ImageField()
+    businessType = forms.ChoiceField( choices = getBusinessTypeTuples() )
     description = forms.CharField( widget=forms.Textarea )
     country = forms.ChoiceField( choices = getCountryCodeCountryTuples())
     city = forms.CharField(required = True,
@@ -51,7 +64,6 @@ class BusinessForm(forms.Form):
     address = forms.CharField( max_length = ADDRESS_MAX_LENGTH,
                                widget=forms.TextInput(attrs={'placeholder':'362 Memorial Drive. APT #201'}))
     
-
 
 
 class ItemAddForm(forms.Form):
@@ -82,13 +94,18 @@ class ItemAddForm(forms.Form):
 class ServiceAddForm(forms.Form):
     title = forms.CharField( required = True,
                              max_length=MAX_TITLE_LENGTH,
-                             widget=forms.TextInput(attrs={'placeholder': 'e.g Gardening'}))
+                             widget=forms.TextInput(attrs={'placeholder': 'e.g House Cleaning, Suit Dry Clean ... '}))
+    serviceType = forms.CharField( required = True,
+                                   max_length=MAX_TYPE_LENGTH,                                
+                                   widget=forms.TextInput(attrs={'placeholder': 'e.g Cleaning, Transportation, Utility'}))
     description = forms.CharField( widget=forms.Textarea )
+    chargeTaxes = forms.BooleanField( required = False )
     price = forms.CharField( required = True,                                                         
                              widget=forms.NumberInput())
     tags = forms.CharField( required = True,
                             max_length=MAX_TAGS_LENGTH,                                
                             widget=forms.TextInput(attrs={'placeholder': 'e.g transportation, utilities, gardening'}))
+    
 
 
 ##TODO: Taxi service special

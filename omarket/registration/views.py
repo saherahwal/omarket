@@ -8,6 +8,8 @@ from django.db import transaction
 from registration import forms as regForms
 from registration.models import SubscriptionType, UserProfile
 from address.models import City, Country, Address
+from address import utils as AddressUtils
+
 #
 # Localizable Strings
 #
@@ -179,7 +181,7 @@ def signup(request):
                 addressObj = Address.objects.create(street_address=street_address,
                                                     city = cityObjs[0],
                                                     zip_code=zipCode,
-                                                    state=regForms.getStateFromId(stateId))
+                                                    state=AddressUtils.getStateFromId(stateId))
                 userObj.addresses.add( addressObj )
                 userObj.save()
 
@@ -305,6 +307,7 @@ def subscribe(request):
         else:
            respErrors.append(" Adding Subscription Failed ") 
 
+        #TODO: fix this - not right for AJAX
         return render(request,
                       "pricing.html",
                       { 'respErrors' : respErrors } )

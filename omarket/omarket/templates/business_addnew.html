@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+        
+     {% block head %}
+	 <!-- Custom CSS -->
+	 <link href="{{STATIC_URL}}css/business/addnew.css" rel="stylesheet">
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.min.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.structure.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.structure.min.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.theme.css" /> 
+	 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqueryUI/jquery-ui.theme.min.css" />      
+     {% endblock %}      
+        
+     {% block body %}
+	 <section id="businessAddNewSection">
+	 {% if respErrors %}
+		<div id = "signinErr" class="alert alert-danger">	
+			<strong>Errors:</strong>
+			<ul>
+				{% for error in respErrors %}
+				<li class ="errorLi">{{ error }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}	
+	<div id="addBusinessContainer">
+		<div id="regNewBusiness">
+			<form  enctype = "multipart/form-data" action="/business/add/" autocomplete="on" method="POST"> {% csrf_token %}
+				<p>										
+					<label for="{{addBusinessForm.name.id_for_label}}" class="nonBool">Business Name</label>
+					{{ addBusinessForm.name }}
+					{% if addBusinessForm.name.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.name.errors }}
+						</div>
+					{% endif %}					
+				</p>
+				<p>										
+					<label for="{{addBusinessForm.businessDesc.id_for_label}}" class="nonBool">Business Description</label>
+					{{ addBusinessForm.description }}
+					{% if addBusinessForm.description.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.description.errors }}
+						</div>
+					{% endif %}					
+				</p>					
+				<p>
+					<label for="{{addBusinessForm.image.id_for_label}}" class="nonBool">Image</label>
+					{{ addBusinessForm.image }}
+					{% if addBusinessForm.image.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.image.errors }}
+						</div>
+					{% endif %}	
+				</p>				
+				<p>
+					<label for="{{addBusinessForm.businessType.id_for_label}}" class="nonBool">Business Type</label>
+					{{ addBusinessForm.businessType }}
+					{% if addBusinessForm.businessType.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.businessType.errors }}
+						</div>
+					{% endif %}	
+				</p>
+				<p> 
+					<label for="{{addBusinessForm.address.id_for_label}}" class="nonBool" data-icon="">Business Street Address </label>
+					{{ addBusinessForm.address }}								
+					{% if addBusinessForm.address.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.address.errors }}
+						</div>
+					{% endif %}
+				</p>
+				<p>
+					<label for="{{addBusinessForm.country.id_for_label}}" class="nonBool" data-icon="">Country </label> </br>
+					{{ addBusinessForm.country }}					
+					{{ addBusinessForm.country.errors }}	
+					{% if addBusinessForm.country.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.country.errors }}
+						</div>
+					{% endif %}
+				</p>
+				<p id="cityChoice">
+					<label for="{{addBusinessForm.city.id_for_label}}" class="nonBool" data-icon="">City </label> </br>
+					{{ addBusinessForm.city }}
+					{% if addBusinessForm.city.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.city.errors }}
+						</div>
+					{% endif %}									
+				</p>
+				<p id="stateChoice">
+					<label for="{{addBusinessForm.state.id_for_label}}" class="nonBool" data-icon="">Your State </label> </br>
+					{{ addBusinessForm.state }}					
+					{{ addBusinessForm.state.errors }}	
+					{% if addBusinessForm.state.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.state.errors }}
+						</div>
+					{% endif %}	
+				</p>
+				<p id="zipCodePar">
+					<label for="{{addBusinessForm.zipcode.id_for_label}}" class="nonBool" data-icon="">Your Zip Code</label> </br>
+					{{ addBusinessForm.zipcode }}					
+					{{ addBusinessForm.zipcode.errors }}	
+					{% if addBusinessForm.zipcode.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.zipcode.errors }}
+						</div>
+					{% endif %}	
+				</p>				
+				<p id="bussinessPhoneNumP">
+					<label for="{{addBusinessForm.phone.id_for_label}}" class="nonBool" data-icon="">Business Phone Number </label> </br>
+					{{ addBusinessForm.phone }}					
+					{% if addBusinessForm.phone.errors %}
+						<div class="alert alert-danger err">									
+							{{ addBusinessForm.phone.errors }}
+						</div>
+					{% endif %}	
+				</p>			
+				
+				<p class="submitAddBusinessClass button"> 
+					<button id="submitAddBusiness" type="submit">Submit</button>
+				</p>	
+			
+			</form>
+		</div>
+	</div>
+	 </section>
+	 {% endblock %}
+		
+		
+	{% block tailscripts %}	
+	<script src="{{STATIC_URL}}js/jqueryUI/jquery-ui.js"></script>
+	<script src="{{STATIC_URL}}js/jqueryUI/jquery-ui.min.js"></script>
+	<script src="{{STATIC_URL}}js/business/newBusiness.js"></script>
+	{% endblock %}
